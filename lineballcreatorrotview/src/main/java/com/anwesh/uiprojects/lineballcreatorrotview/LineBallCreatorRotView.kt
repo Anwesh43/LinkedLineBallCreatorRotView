@@ -223,4 +223,13 @@ class LineBallCreatorRotView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    companion object {
+
+        fun create(activity : Activity) : LineBallCreatorRotView {
+            val view : LineBallCreatorRotView = LineBallCreatorRotView(activity)
+            activity.setContentView(view)
+            return view 
+        }
+    }
 }
