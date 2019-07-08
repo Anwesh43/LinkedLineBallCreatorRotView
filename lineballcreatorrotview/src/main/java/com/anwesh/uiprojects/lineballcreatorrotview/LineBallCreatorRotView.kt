@@ -200,4 +200,26 @@ class LineBallCreatorRotView(ctx : Context) : View(ctx) {
             curr.startUpdating(cb)
         }
     }
+
+    data class Renderer(var view : LineBallCreatorRotView) {
+
+        private val lbc : LineBallCreatorRot = LineBallCreatorRot(0)
+        private val animator : Animator = Animator(view)
+
+        fun draw(canvas : Canvas, paint : Paint) {
+            canvas.drawColor(backColor)
+            lbc.draw(canvas, paint)
+            animator.animate {
+                lbc.update {i, scl ->
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            lbc.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
