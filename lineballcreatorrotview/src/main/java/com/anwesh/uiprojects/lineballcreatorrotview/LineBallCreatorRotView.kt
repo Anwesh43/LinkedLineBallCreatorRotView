@@ -17,10 +17,11 @@ val balls : Int = 5
 val scGap : Float = 0.05f
 val scDiv : Double = 0.51
 val strokeFactor : Int = 90
-val sizeFactor : Float = 2.9f
+val sizeFactor : Float = 2.0f
 val foreColor : Int = Color.parseColor("#1A237E")
 val backColor : Int = Color.parseColor("#BDBDBD")
 val rotDeg : Float = 90f
+val delay : Long = 20
 
 fun Int.inverse() : Float = 1f / this
 fun Float.scaleFactor() : Float = Math.floor(this / scDiv).toFloat()
@@ -64,6 +65,7 @@ fun Canvas.drawLBCRNode(i : Int, scale : Float, paint : Paint) {
     save()
     translate(gap * (i + 1), h / 2)
     rotate(rotDeg * sc2)
+    drawLine(0f, -size, 0f, size, paint)
     drawBalls(sc1, size, paint)
     restore()
 }
@@ -112,7 +114,7 @@ class LineBallCreatorRotView(ctx : Context) : View(ctx) {
             if (animated) {
                 cb()
                 try {
-                    Thread.sleep(50)
+                    Thread.sleep(delay)
                     view.invalidate()
                 } catch(ex : Exception) {
 
@@ -229,7 +231,7 @@ class LineBallCreatorRotView(ctx : Context) : View(ctx) {
         fun create(activity : Activity) : LineBallCreatorRotView {
             val view : LineBallCreatorRotView = LineBallCreatorRotView(activity)
             activity.setContentView(view)
-            return view 
+            return view
         }
     }
 }
